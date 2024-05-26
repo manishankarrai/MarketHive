@@ -1,7 +1,8 @@
 const { Category } = require('../models/category');
 const { logger }  =  require('../services/loggerService');
 const {  generateSEOTitle }  = require('../services/commanFunction');
-async function createCategory(req, res) {
+
+const createCategory =  async  (req, res)=> {
     try {
         const { category_name, category_priority } = req.body;
         const category_seo   =  generateSEOTitle(category_name);
@@ -27,7 +28,7 @@ async function createCategory(req, res) {
     }
 }
 
-async function getAllCategories(req, res) {
+const getAllCategories  = async  (req, res)=> {
     try {
         const categories = await Category.findAll({
             attributes: { exclude: ['deletedAt'] }
@@ -45,7 +46,7 @@ async function getAllCategories(req, res) {
     }
 }
 
-async function getCategoryById(req, res) {
+const getCategoryById  =  async  (req, res)=> {
     try {
         const { id } = req.body;
         const category = await Category.findByPk(id);
@@ -65,7 +66,7 @@ async function getCategoryById(req, res) {
     }
 }
 
-async function updateCategory(req, res) {
+const updateCategory = async  (req, res) =>{
     try {
         const { id , category_name, category_priority } = req.body;
         const category = await Category.findByPk(id);
@@ -95,7 +96,7 @@ async function updateCategory(req, res) {
     }
 }
 
-async function deleteCategory(req, res) {
+const deleteCategory  =  async  (req, res)=> {
     try {
         const { id } = req.body;
         const category = await Category.findByPk(id);

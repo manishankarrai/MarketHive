@@ -3,9 +3,9 @@ const bcrypt = require('bcryptjs');
 const { sequelize } = require('../config/mysqlConnection');
 
 
-const User = sequelize.define('users', {
+const Seller = sequelize.define('sellers', {
 
-  username: {
+  sellername: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
@@ -28,23 +28,23 @@ const User = sequelize.define('users', {
   timestamps: true,
 });
 
-User.beforeCreate(async (user) => {
+Seller.beforeCreate(async (seller) => {
   const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
+  seller.password = await bcrypt.hash(seller.password, salt);
 });
 
-User.beforeUpdate(async (user) => {
-  if (user.changed('password')) {
+Seller.beforeUpdate(async (seller) => {
+  if (seller.changed('password')) {
     const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
+    seller.password = await bcrypt.hash(seller.password, salt);
   }
 });
 
-User.prototype.comparePassword = function (password) {
+Seller.prototype.comparePassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
 
 
 sequelize.sync();
 
-module.exports = { User };
+module.exports = { Seller };

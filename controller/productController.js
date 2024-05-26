@@ -1,7 +1,7 @@
 const { Product } = require('../models/product');
 const { User } = require('../models/user');
 const { Category } = require('../models/category');
-const { SubCategory } = require('../models/subcategory');
+const { SubCategory } = require('../models/subCategory');
 const { logger } = require('../services/loggerService');
 const { generateSEOTitle } = require('../services/commanFunction');
 const { createUploader } =  require('../services/uploadFile');
@@ -9,7 +9,7 @@ const util = require('util');
 
 
 
-async function createProduct(req, res) {
+const createProduct  =  async  (req, res)=> {
     try {
 
         const upload  = await  createUploader('../public/gallery/products' , 'product_thumbnail' );
@@ -53,7 +53,7 @@ async function createProduct(req, res) {
     }
 }
 
-async function getAllProducts(req, res) {
+const getAllProducts  = async  (req, res)=> {
     try {
         const products = await Product.findAll({
             attributes: { exclude: ['deletedAt'] },
@@ -77,7 +77,7 @@ async function getAllProducts(req, res) {
     }
 }
 
-async function getProductById(req, res) {
+const getProductById  =  async  (req, res)=> {
     try {
         const { id } = req.body;
         const product = await Product.findByPk(id, {
@@ -106,7 +106,7 @@ async function getProductById(req, res) {
       }
 }
 
-async function updateProduct(req, res) {
+const updateProduct  =  async  (req, res)=> {
     try {
         const upload  = await  createUploader('../public/gallery/products' , 'product_thumbnail' );
 
@@ -132,7 +132,7 @@ async function updateProduct(req, res) {
     }
 }
 
-async function deleteProduct(req, res) {
+const deleteProduct  =  async  (req, res)=> {
     try {
         const { id } = req.body;
         const product = await Product.findByPk(id);

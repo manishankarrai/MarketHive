@@ -10,6 +10,7 @@ const { newRequest } = require('./middleware/logsMiddleware');
 
 const app   =  express();
 
+// development mode is on right now 
 
 app.use(express.json());
 app.use(newRequest);
@@ -27,4 +28,4 @@ app.get('/' , (req , res)=> {
 })
 
 
-app.listen(process.env.PORT || 3000 , ()=> console.log('server is running'));
+app.listen(process.env.PORT || 3000 , ()=> console.log('server is running in development mode '));

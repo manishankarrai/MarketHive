@@ -2,14 +2,14 @@ const { Sequelize, DataTypes } = require('sequelize');
 const { sequelize } = require('../config/mysqlConnection');
 const { User } = require('./user');
 const { Category } = require('./category');
-const { SubCategory } = require('./subcategory');
+const { SubCategory } = require('./subCategory');
 
 
 
 
 const Product = sequelize.define('products', {
 
-    uid: {
+    sid: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -60,10 +60,12 @@ const Product = sequelize.define('products', {
     deletedAt: {
         type: DataTypes.DATE,
     }
+
 }, {
     paranoid: true,
     timestamps: true,
 });
+
 
 Product.belongsTo(Category, { foreignKey: 'category_id' });
 Product.belongsTo(SubCategory, { foreignKey: 'subcategory_id' });

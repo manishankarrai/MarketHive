@@ -13,10 +13,6 @@ const Cart =  sequelize.define('carts' , {
             key: 'id'
          }
       } , 
-      unified_id : {
-        type: DataTypes.String , 
-        allowNull : true 
-      } , 
       uid : {
         type : DataTypes.INTEGER , 
         allowNull: true , 
@@ -37,7 +33,7 @@ const Cart =  sequelize.define('carts' , {
 });
 
 
-Product.hasOne(User, { foreignKey: 'uid' });
+Product.belongsTo(User, { foreignKey: 'uid' });
 Product.hasOne(Product, { foreignKey: 'product_id' });
 
 sequelize.sync();

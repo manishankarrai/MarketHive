@@ -1,9 +1,9 @@
-const { SubCategory } = require('../models/subcategory');
+const { SubCategory } = require('../models/subCategory');
 const { Category } = require('../models/category');
 const { generateSEOTitle } = require('../services/commanFunction');
 const { logger  } =  require('../services/loggerService');
 
-async function createSubCategory(req, res) {
+const createSubCategory  = async  (req, res)=> {
     try {
         const { category_id, subcategory_name, subcategory_priority } = req.body;
         const subcategory_seo = generateSEOTitle(subcategory_name);
@@ -33,7 +33,7 @@ async function createSubCategory(req, res) {
     }
 }
 
-async function getAllSubCategories(req, res) {
+const getAllSubCategories  =  async  (req, res)=> {
     try {
         const subCategories = await SubCategory.findAll({
             attributes: { exclude: ['deletedAt'] },
@@ -45,7 +45,7 @@ async function getAllSubCategories(req, res) {
     }
 }
 
-async function getSubCategoryById(req, res) {
+const getSubCategoryById  =  async  (req, res)=> {
     try {
         const { id } = req.body;
         const subCategory = await SubCategory.findByPk(id, {
@@ -61,7 +61,7 @@ async function getSubCategoryById(req, res) {
     }
 }
 
-async function updateSubCategory(req, res) {
+const updateSubCategory  =  async  (req, res)=> {
     try {
         const { id , subcategory_name, subcategory_priority , category_id } = req.body;
         const subCategory = await SubCategory.findByPk(id);
@@ -94,7 +94,7 @@ async function updateSubCategory(req, res) {
         res.status(500).json({ error: 1, message: error.message });
     }
 }
-async function deleteSubCategory(req, res) {
+const deleteSubCategory  =  async  (req, res)=> {
     try {
         const { id } = req.body;
         const subCategory = await SubCategory.findByPk(id);
