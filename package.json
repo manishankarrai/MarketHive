@@ -1,7 +1,7 @@
 {
-  "name": "myshop",
+  "name": "MarketHive",
   "version": "1.0.0",
-  "description": "",
+  "description": "Welcome to the MarketHive Website repository! This project is a fully functional e-commerce platform that allows users to browse, search, and purchase products online. It includes a variety of features such as user authentication, product listings, shopping cart functionality, and a checkout process.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

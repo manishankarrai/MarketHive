@@ -31,13 +31,13 @@ Follow these instructions to set up and run the project locally.
 - Node.js
 - MongoDB
 - Git
-
+- Mysql 
 ### Installation
 
 1. **Clone the repository**:
    ```sh
-   git clone https://github.com/your-username/shopping-website.git
-   cd shopping-website
+   git clone https://github.com/manishankarrai/MarketHive.git
+   cd MarketHive
 
-2. **composer install
-3. 
+2. **npm install**
+3. **set .env , public/gallery/products and database**

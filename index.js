@@ -1,7 +1,7 @@
 const express =  require('express');
 require('dotenv').config();
 require('./config/mysqlConnection');
-const { authRoute }  =  require('./routes/authRoute');
+const  authRoute   =  require('./routes/authRoute');
 const categoryRoute  =  require('./routes/admin/categoryRoute');
 const subcategoryRoute  =  require('./routes/admin/subcategoryRoute');
 const productRoute  =  require('./routes/admin/productRoute');
