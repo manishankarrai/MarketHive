@@ -17,6 +17,14 @@ const generateSellerToken = (seller) => {
 
   return jwt.sign(payload, process.env.SECRET, { expiresIn: '1d' }); 
 };
+const generateAdminToken = (admin) => {
+  const payload = {
+    id: admin.id,
+    adminname: admin.adminname,
+  };
+
+  return jwt.sign(payload, process.env.SECRET, { expiresIn: '1h' }); 
+};
 
 
-module.exports = { generateUserToken , generateSellerToken };
+module.exports = { generateUserToken , generateSellerToken , generateAdminToken };

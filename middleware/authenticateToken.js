@@ -47,4 +47,26 @@ const authenticateSellerToken = async (req, res, next) => {
 
   }
 };
-module.exports = { authenticateUserToken ,  authenticateSellerToken };
+const authenticateAdminToken = async (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (!token) return res.sendStatus(401);
+
+  try {
+    const decoded = jwt.verify(token, secret);
+    const admin = await Admin.findByPk(decoded.id);
+
+    if (!admin) {
+      return res.status(403).send({message: 'credencial missing , please login again'  , error : 1 });
+    }
+
+    req.admin = admin;
+    next();
+  } catch (error) {
+
+    return res.status(403).send({message: error.message  , error : 1 });
+
+  }
+};
+
+module.exports = { authenticateUserToken ,  authenticateSellerToken   , authenticateAdminToken };

@@ -1,7 +1,7 @@
 const express  = require('express');
 const router   =  express.Router();
-const { register  , login } =  require('../controller/auth/userAuthController');
-const {  validateRegister, validateLogin } = require('../middleware/validateAuth');
+const { register  , login } =  require('../../controller/auth/userAuthController');
+const {  validateRegister, validateLogin } = require('../../middleware/validateAuth');
 
 
 router.get('/test' , function(req , res){
