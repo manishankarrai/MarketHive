@@ -6,8 +6,11 @@ const {
     updateStock,
     deleteStock
 } = require('../../controller/stocksController');
+const { authenticateSellerToken } = require("../../middleware/authenticateToken");
 
 const router = express.Router();
+
+router.use(authenticateSellerToken);
 
 router.post('/store', createStock);
 router.get('/get', getAllStocks);

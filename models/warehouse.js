@@ -1,16 +1,16 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/mysqlConnection');
-
+const { Seller } = require('./seller');
 const Warehouse = sequelize.define('warehouse', {
-    sid : {
-        type : DataTypes.INTEGER , 
-        allowNull: true , 
-        references : {
-             model : User , 
-             key: 'id'
+    sid: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: Seller,
+            key: 'id'
         }
-      }, 
-      warehouse_name: {
+    },
+    warehouse_name: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -23,7 +23,7 @@ const Warehouse = sequelize.define('warehouse', {
     timestamps: true
 });
 
-Order.hasOne(User, { foreignKey: 'uid' });
+Warehouse.belongsTo(Seller, { foreignKey: 'sid' });
 
 sequelize.sync();
 

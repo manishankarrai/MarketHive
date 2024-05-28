@@ -7,18 +7,16 @@ const {
   updateCategory,
   deleteCategory,
 } = require("../../controller/categoryController");
+const { authenticateAdminToken } = require("../../middleware/authenticateToken");
 
-const { authenticateToken } = require("../../middleware/authenticateToken");
-
-router.use(authenticateToken);
 router.get("/test", (req, res) => {
   res.status(200).send({ message: "working" });
 });
 
-router.post("/store", createCategory);
+router.post("/store", authenticateAdminToken ,createCategory);
 router.get("/get", getAllCategories);
-router.post("/getbyid", getCategoryById);
-router.post("/update", updateCategory);
-router.post("/delete", deleteCategory);
+router.post("/getbyid",  getCategoryById);
+router.post("/update", authenticateAdminToken , updateCategory);
+router.post("/delete", authenticateAdminToken , deleteCategory);
 
 module.exports = router;

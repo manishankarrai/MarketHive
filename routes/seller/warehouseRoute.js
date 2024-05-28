@@ -6,8 +6,12 @@ const {
     updateWarehouse,
     deleteWarehouse
 } = require('../../controller/warehouseController');
-
+const { authenticateSellerToken } = require("../../middleware/authenticateToken");
 const router = express.Router();
+
+
+
+router.use(authenticateSellerToken);
 
 router.post('/store', createWarehouse);
 router.get('/get', getAllWarehouses);

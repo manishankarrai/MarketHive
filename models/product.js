@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const { sequelize } = require('../config/mysqlConnection');
-const { User } = require('./user');
+const { Seller } = require('./seller');
 const { Category } = require('./category');
 const { SubCategory } = require('./subCategory');
 
@@ -13,7 +13,7 @@ const Product = sequelize.define('products', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: User,
+            model: Seller,
             key: 'id'
         }
     },
@@ -69,7 +69,7 @@ const Product = sequelize.define('products', {
 
 Product.belongsTo(Category, { foreignKey: 'category_id' });
 Product.belongsTo(SubCategory, { foreignKey: 'subcategory_id' });
-Product.belongsTo(User, { foreignKey: 'uid' });
+Product.belongsTo(Seller, { foreignKey: 'sid' });
 
 
 sequelize.sync();

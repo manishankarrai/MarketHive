@@ -7,15 +7,13 @@ const {
     updateProduct,
     deleteProduct,
 } = require('../../controller/productController');
-const { authenticateToken } = require("../../middleware/authenticateToken");
+const { authenticateSellerToken } = require("../../middleware/authenticateToken");
 
-router.use(authenticateToken);
-
-router.post('/store', createProduct);
+router.post('/store', authenticateSellerToken , createProduct);
 router.get('/get', getAllProducts);
 router.post('/getbyid', getProductById);
-router.post('/update', updateProduct);
-router.post('/delete', deleteProduct);
+router.post('/update', authenticateSellerToken , updateProduct);
+router.post('/delete', authenticateSellerToken , deleteProduct);
 
 
 

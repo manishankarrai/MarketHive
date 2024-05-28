@@ -1,7 +1,8 @@
 // models/Stock.js
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/mysqlConnection');
-const { Warehouse } = require('./Warehouse');
+const { Warehouse } = require('./warehouse');
+const { Product } = require('./product');
 
 const Stock = sequelize.define('stock', {
     product_id: {
@@ -32,6 +33,8 @@ const Stock = sequelize.define('stock', {
 
 Warehouse.hasMany(Stock, { foreignKey: 'warehouse_id' });
 Stock.belongsTo(Warehouse, { foreignKey: 'warehouse_id' });
+Stock.belongsTo(Product, { foreignKey: 'product_id' });
+
 
 sequelize.sync();
 

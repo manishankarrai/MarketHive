@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const { User } = require('../models/user');
 const { Seller } = require('../models/seller');
+const { Admin } = require('../models/admin');
+
 const secret = process.env.SECRET;
 
 const authenticateUserToken = async (req, res, next) => {
@@ -13,10 +15,10 @@ const authenticateUserToken = async (req, res, next) => {
     const decoded = jwt.verify(token, secret);
     const user = await User.findByPk(decoded.id);
 
-    if (!user) {
+    if (!user || user.username != decoded.username) {
       return res.status(403).send({message: 'credencial missing , please login again'  , error : 1 });
     }
-
+    
     req.user = user;
     next();
   } catch (error) {
@@ -35,7 +37,7 @@ const authenticateSellerToken = async (req, res, next) => {
     const decoded = jwt.verify(token, secret);
     const seller = await Seller.findByPk(decoded.id);
 
-    if (!seller) {
+    if (!seller || seller.sellername != decoded.sellername) {
       return res.status(403).send({message: 'credencial missing , please login again'  , error : 1 });
     }
 
@@ -56,7 +58,7 @@ const authenticateAdminToken = async (req, res, next) => {
     const decoded = jwt.verify(token, secret);
     const admin = await Admin.findByPk(decoded.id);
 
-    if (!admin) {
+    if (!admin || admin.adminname != decoded.adminname ) {
       return res.status(403).send({message: 'credencial missing , please login again'  , error : 1 });
     }
 

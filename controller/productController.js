@@ -1,5 +1,5 @@
 const { Product } = require('../models/product');
-const { User } = require('../models/user');
+const { Seller } = require('../models/seller');
 const { Category } = require('../models/category');
 const { SubCategory } = require('../models/subCategory');
 const { logger } = require('../services/loggerService');
@@ -20,10 +20,10 @@ const createProduct  =  async  (req, res)=> {
         let product_thumbnail = req.file ? req.file.filename : null;
 
         const {  category_id, subcategory_id, product_name, product_price, product_short_info } = req.body;
-        const uid =  req.user.id ;
+        const sid =  req.seller.id ;
         const product_seo = generateSEOTitle(product_name);
         const product = await Product.create({
-            uid,
+            sid,
             category_id,
             subcategory_id,
             product_name,
@@ -44,7 +44,7 @@ const createProduct  =  async  (req, res)=> {
         console.error(error);
         logger.error({
             message: error.message,
-            uid: req.user.id,
+            sid: req.seller.id,
             ip: req.ip,
             method: req.method,
             url: req.url
@@ -60,7 +60,7 @@ const getAllProducts  = async  (req, res)=> {
             include: [
                 { model: Category, attributes: ['id', 'category_name'] },
                 { model: SubCategory, attributes: ['id', 'subcategory_name'] },
-                { model: User, attributes: ['id', 'username'] }
+                { model: Seller, attributes: ['id', 'sellername'] }
             ]
         });
         res.status(200).json({ error: 0, data: products, message: ' Successfull' });
@@ -68,7 +68,7 @@ const getAllProducts  = async  (req, res)=> {
         console.error(error);
         logger.error({
             message: error.message,
-            uid: req.user.id,
+            sid: req.seller.id,
             ip: req.ip,
             method: req.method,
             url: req.url
@@ -85,7 +85,7 @@ const getProductById  =  async  (req, res)=> {
             include: [
                 { model: Category, attributes: ['id', 'category_name'] },
                 { model: SubCategory, attributes: ['id', 'subcategory_name'] },
-                { model: User, attributes: ['id', 'username'] }
+                { model: Seller, attributes: ['id', 'sellername'] }
             ]
         });
         if (!product) {
@@ -97,7 +97,7 @@ const getProductById  =  async  (req, res)=> {
         console.error(error);
         logger.error({
             message: error.message,
-            uid : req.user.id ,
+            sid : req.seller.id ,
             ip: req.ip,
             method: req.method,
             url: req.url
@@ -120,10 +120,10 @@ const updateProduct  =  async  (req, res)=> {
         if (!product) {
             return res.status(404).json({ message: 'Product not found', error: 1 });
         }
-        product.product_name = product_name;
-        product.product_seo = product_seo;
-        product.product_thumbnail = product_thumbnail;
-        product.product_price = product_price;
+        product.product_name       = product_name;
+        product.product_seo        = product_seo;
+        product.product_thumbnail  = product_thumbnail;
+        product.product_price      = product_price;
         product.product_short_info = product_short_info;
         await product.save();
         res.status(200).json({ error: 0, data: product, message: ' Successfully Updated' });
@@ -145,7 +145,7 @@ const deleteProduct  =  async  (req, res)=> {
         console.error(error);
         logger.error({
             message: error.message,
-            uid : req.user.id ,
+            sid : req.seller.id ,
             ip: req.ip,
             method: req.method,
             url: req.url
